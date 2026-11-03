@@ -1,0 +1,18 @@
+name: Garder Supabase actif
+
+# Les projets Supabase gratuits sont mis en pause après 7 jours sans activité.
+# Cette tâche interroge l'API publique tous les 3 jours (clé « publishable », publique par conception).
+on:
+  schedule:
+    - cron: '0 6 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger l'API
+        run: |
+          curl --fail --silent --show-error \
+            "https://lrzycauhnkklamhubqlg.supabase.co/rest/v1/activities?select=id&limit=1" \
+            -H "apikey: sb_publishable_mx2JViOkPVARFnT5cJZsIw_HPlrqCWA"
