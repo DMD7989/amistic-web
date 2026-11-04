@@ -10,6 +10,36 @@ export interface GalleryPhoto {
   alt: string;
 }
 
+// Photo de bannière : `position` règle la zone visible (object-position) quand l'image est recadrée
+export interface BannerPhoto {
+  src: string;
+  alt: string;
+  position: string;
+}
+
+export const BANNERS = {
+  activities: {
+    src: '/images/banniere-activites.jpg',
+    alt: "Quatre membres de l'association lors d'une activité",
+    position: '50% 40%',
+  },
+  team: {
+    src: '/images/banniere-equipe.jpg',
+    alt: "Trois membres de l'association lors d'une rencontre en plein air",
+    position: '50% 45%',
+  },
+  news: {
+    src: '/images/banniere-actualites.jpg',
+    alt: 'Deux participants travaillent sur un ordinateur pendant un atelier',
+    position: '30% 62%',
+  },
+  contact: {
+    src: '/images/banniere-contact.jpg',
+    alt: "Un groupe de membres de l'association posant ensemble",
+    position: '50% 25%',
+  },
+} as const satisfies Record<string, BannerPhoto>;
+
 // Photo de groupe (1080 px) : accueil et page « À propos »
 export const GROUP_PHOTO: Photo = {
   src: '/images/groupe-1080.jpg',

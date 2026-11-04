@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivityGrid } from '../activity-grid';
 import { Gallery } from '../gallery';
+import { BANNERS } from '../images';
+import { PageHead } from '../page-head';
 
 @Component({
   selector: 'app-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ActivityGrid, Gallery],
+  imports: [PageHead, ActivityGrid, Gallery],
   template: `
-    <section class="page-head">
-      <div class="container">
-        <h1>Nos activités</h1>
-        <p>Ce que nous faisons sur le terrain.</p>
-      </div>
-    </section>
+    <app-page-head
+      title="Nos activités"
+      subtitle="Ce que nous faisons sur le terrain."
+      [photo]="banner"
+    />
 
     <section class="section soft">
       <div class="container">
@@ -28,4 +29,6 @@ import { Gallery } from '../gallery';
     </section>
   `,
 })
-export class Actions {}
+export class Actions {
+  protected readonly banner = BANNERS.activities;
+}

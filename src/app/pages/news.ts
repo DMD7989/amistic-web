@@ -3,10 +3,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NewsService } from '../news.service';
 import { Reveal } from '../reveal';
+import { BANNERS } from '../images';
+import { PageHead } from '../page-head';
 
 @Component({
   selector: 'app-news',
-  imports: [Reveal, DatePipe, RouterLink],
+  imports: [PageHead, Reveal, DatePipe, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     .grid {
@@ -80,12 +82,11 @@ import { Reveal } from '../reveal';
     }
   `,
   template: `
-    <section class="page-head">
-      <div class="container">
-        <h1>Actualités</h1>
-        <p>Les activités et événements de l'association.</p>
-      </div>
-    </section>
+    <app-page-head
+      title="Actualités"
+      subtitle="Les activités et événements de l'association."
+      [photo]="banner"
+    />
 
     <section class="section soft">
       <div class="container">
@@ -126,5 +127,6 @@ import { Reveal } from '../reveal';
   `,
 })
 export class News {
+  protected readonly banner = BANNERS.news;
   protected readonly service = inject(NewsService);
 }

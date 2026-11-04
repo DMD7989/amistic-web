@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Reveal } from '../reveal';
 import { TeamService } from '../team.service';
+import { BANNERS } from '../images';
+import { PageHead } from '../page-head';
 
 @Component({
   selector: 'app-team',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Reveal],
+  imports: [PageHead, Reveal],
   styles: `
     .grid {
       display: grid;
@@ -52,12 +54,7 @@ import { TeamService } from '../team.service';
     }
   `,
   template: `
-    <section class="page-head">
-      <div class="container">
-        <h1>Équipe</h1>
-        <p>Le bureau de l'association.</p>
-      </div>
-    </section>
+    <app-page-head title="Équipe" subtitle="Le bureau de l'association." [photo]="banner" />
 
     <section class="section soft">
       <div class="container">
@@ -92,6 +89,7 @@ import { TeamService } from '../team.service';
   `,
 })
 export class Team {
+  protected readonly banner = BANNERS.team;
   protected readonly service = inject(TeamService);
 
   protected initials(name: string): string {

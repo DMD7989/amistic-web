@@ -2,11 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { MessageService } from '../inbox.service';
 import { SITE, whatsappLink } from '../site.config';
+import { BANNERS } from '../images';
+import { PageHead } from '../page-head';
 
 @Component({
   selector: 'app-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
+  imports: [PageHead, FormsModule],
   styles: `
     form {
       display: grid;
@@ -57,12 +59,11 @@ import { SITE, whatsappLink } from '../site.config';
     }
   `,
   template: `
-    <section class="page-head">
-      <div class="container">
-        <h1>Contact</h1>
-        <p>Une question, un projet, une adhésion ? Écrivez-nous.</p>
-      </div>
-    </section>
+    <app-page-head
+      title="Contact"
+      subtitle="Une question, un projet, une adhésion ? Écrivez-nous."
+      [photo]="banner"
+    />
 
     <section class="section">
       <div class="container split">
@@ -141,6 +142,7 @@ import { SITE, whatsappLink } from '../site.config';
   `,
 })
 export class Contact {
+  protected readonly banner = BANNERS.contact;
   private readonly messages = inject(MessageService);
   protected readonly site = SITE;
   protected readonly whatsapp = whatsappLink;
