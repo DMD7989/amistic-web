@@ -179,17 +179,6 @@ a {
   background: var(--accent);
   color: var(--ink);
   padding: 3.5rem 0;
-  // Photo facultative : <section class="page-head" [style.--head-image]="...">
-  background-image:
-    linear-gradient(
-      100deg,
-      rgba(236, 160, 32, 0.95) 0%,
-      rgba(236, 160, 32, 0.88) 45%,
-      rgba(236, 160, 32, 0.35)
-    ),
-    var(--head-image, none);
-  background-size: cover;
-  background-position: center;
 
   h1 {
     margin: 0;

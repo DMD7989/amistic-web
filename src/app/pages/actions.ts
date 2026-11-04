@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivityGrid } from '../activity-grid';
 import { Gallery } from '../gallery';
-import { IMAGES, cssUrl } from '../images';
 
 @Component({
   selector: 'app-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ActivityGrid, Gallery],
   template: `
-    <section class="page-head" [style.--head-image]="head">
+    <section class="page-head">
       <div class="container">
         <h1>Nos activités</h1>
         <p>Ce que nous faisons sur le terrain.</p>
@@ -29,6 +28,4 @@ import { IMAGES, cssUrl } from '../images';
     </section>
   `,
 })
-export class Actions {
-  protected readonly head = cssUrl(IMAGES.activities);
-}
+export class Actions {}

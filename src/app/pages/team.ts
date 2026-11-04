@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { IMAGES, cssUrl } from '../images';
 import { Reveal } from '../reveal';
 import { TeamService } from '../team.service';
 
@@ -53,7 +52,7 @@ import { TeamService } from '../team.service';
     }
   `,
   template: `
-    <section class="page-head" [style.--head-image]="head">
+    <section class="page-head">
       <div class="container">
         <h1>Équipe</h1>
         <p>Le bureau de l'association.</p>
@@ -93,7 +92,6 @@ import { TeamService } from '../team.service';
   `,
 })
 export class Team {
-  protected readonly head = cssUrl(IMAGES.team);
   protected readonly service = inject(TeamService);
 
   protected initials(name: string): string {

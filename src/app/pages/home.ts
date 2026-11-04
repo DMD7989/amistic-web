@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink } from '@angular/router';
 import { ActivityGrid } from '../activity-grid';
 import { Gallery } from '../gallery';
-import { IMAGES } from '../images';
+import { GROUP_PHOTO } from '../images';
 import { NewsService } from '../news.service';
 import { PartnerService } from '../partner.service';
 import { Reveal } from '../reveal';
@@ -40,27 +40,18 @@ import { Reveal } from '../reveal';
         transform: translateY(-52%) translateX(-18px) rotate(1.5deg);
       }
     }
+    // Photo de groupe à droite, fondue dans le fond ocre ; le texte reste sur l'ocre
     .hero-bg {
       position: absolute;
-      inset: 0;
-      width: 100%;
+      top: 0;
+      right: 0;
+      width: 58%;
       height: 100%;
       object-fit: cover;
+      object-position: 50% 60%;
+      mask-image: linear-gradient(to right, transparent, #000 22%);
     }
-    // Voile ocre : garde le titre lisible à gauche, laisse voir la photo à droite
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(
-        100deg,
-        rgba(236, 160, 32, 0.95) 0%,
-        rgba(236, 160, 32, 0.88) 40%,
-        rgba(236, 160, 32, 0.3)
-      );
-    }
-    .map {
+    .hero-bg {
       z-index: 1;
     }
     .hero .container {
@@ -233,6 +224,20 @@ import { Reveal } from '../reveal';
         right: -20%;
         opacity: 0.3;
       }
+      // Sur petit écran, la photo passe sous le texte
+      .hero {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+      }
+      .hero-bg {
+        position: static;
+        order: 3;
+        width: 100%;
+        height: 260px;
+        margin-top: 2.5rem;
+        mask-image: linear-gradient(to bottom, transparent, #000 30%);
+      }
     }
     @media (max-width: 560px) {
       .hero {
@@ -260,10 +265,10 @@ import { Reveal } from '../reveal';
         class="hero-bg"
         [src]="hero.src"
         [attr.srcset]="hero.srcset"
-        sizes="100vw"
-        width="1600"
-        height="900"
-        alt=""
+        sizes="(max-width: 900px) 100vw, 58vw"
+        width="1080"
+        height="810"
+        alt="Les membres d'AMISTIC réunis pour les 20 ans de l'association"
         fetchpriority="high"
       />
       <svg class="map" viewBox="90 20 870 880" aria-hidden="true">
@@ -331,7 +336,7 @@ import { Reveal } from '../reveal';
     <section class="section soft">
       <div class="container">
         <div class="title-bar" appReveal><h2>L'association en images</h2></div>
-        <app-gallery [featured]="true" />
+        <app-gallery [limit]="4" />
       </div>
     </section>
 
@@ -410,7 +415,7 @@ import { Reveal } from '../reveal';
   `,
 })
 export class Home {
-  protected readonly hero = IMAGES.hero;
+  protected readonly hero = GROUP_PHOTO;
   protected readonly news = inject(NewsService);
   protected readonly partners = inject(PartnerService);
   protected readonly latestNews = computed(() => this.news.items().slice(0, 3));

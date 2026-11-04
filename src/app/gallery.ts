@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { GALLERY, IMAGES } from './images';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { GALLERY } from './images';
 import { Reveal } from './reveal';
 
-// Photos des activités. En mode « featured », la photo de groupe prend la place d'honneur.
+// Photos des activités ; `limit` réduit le nombre de photos affichées (ex. sur l'accueil).
 @Component({
   selector: 'app-gallery',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Reveal],
   styles: `
     .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 0.8rem;
     }
     figure {
+      flex: 0 0 calc(25% - 0.6rem);
       margin: 0;
       overflow: hidden;
       border-radius: 8px;
@@ -22,7 +24,6 @@ import { Reveal } from './reveal';
     img {
       display: block;
       width: 100%;
-      height: 100%;
       aspect-ratio: 1;
       object-fit: cover;
       transition: transform 0.6s ease;
@@ -30,32 +31,14 @@ import { Reveal } from './reveal';
     figure:hover img {
       transform: scale(1.06);
     }
-    .featured {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
     @media (max-width: 820px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
+      figure {
+        flex-basis: calc(50% - 0.4rem);
       }
     }
   `,
   template: `
     <div class="grid">
-      @if (featured()) {
-        <figure class="featured" appReveal>
-          <img
-            [src]="group.src"
-            [attr.srcset]="group.srcset"
-            sizes="(max-width: 820px) 100vw, 560px"
-            width="1080"
-            height="810"
-            alt="Les membres d'AMISTIC réunis pour les 20 ans de l'association"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-      }
       @for (p of photos(); track p.src; let i = $index) {
         <figure appReveal [style.--d]="(i % 4) * 100 + 'ms'">
           <img
@@ -72,9 +55,6 @@ import { Reveal } from './reveal';
   `,
 })
 export class Gallery {
-  readonly featured = input(false);
-  protected readonly group = IMAGES.group;
-  protected photos() {
-    return this.featured() ? GALLERY.slice(0, 4) : GALLERY;
-  }
+  readonly limit = input(Infinity);
+  protected readonly photos = computed(() => GALLERY.slice(0, this.limit()));
 }

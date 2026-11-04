@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { IMAGES } from '../images';
+import { GROUP_PHOTO } from '../images';
 import { Reveal } from '../reveal';
 
 @Component({
@@ -93,5 +93,5 @@ import { Reveal } from '../reveal';
   `,
 })
 export class About {
-  protected readonly photo = IMAGES.group;
+  protected readonly photo = GROUP_PHOTO;
 }

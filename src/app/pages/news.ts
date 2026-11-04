@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NewsService } from '../news.service';
-import { IMAGES, cssUrl } from '../images';
 import { Reveal } from '../reveal';
 
 @Component({
@@ -81,7 +80,7 @@ import { Reveal } from '../reveal';
     }
   `,
   template: `
-    <section class="page-head" [style.--head-image]="head">
+    <section class="page-head">
       <div class="container">
         <h1>Actualités</h1>
         <p>Les activités et événements de l'association.</p>
@@ -127,6 +126,5 @@ import { Reveal } from '../reveal';
   `,
 })
 export class News {
-  protected readonly head = cssUrl(IMAGES.news);
   protected readonly service = inject(NewsService);
 }

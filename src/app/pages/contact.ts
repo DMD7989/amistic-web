@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { MessageService } from '../inbox.service';
 import { SITE, whatsappLink } from '../site.config';
-import { IMAGES, cssUrl } from '../images';
 
 @Component({
   selector: 'app-contact',
@@ -58,7 +57,7 @@ import { IMAGES, cssUrl } from '../images';
     }
   `,
   template: `
-    <section class="page-head" [style.--head-image]="head">
+    <section class="page-head">
       <div class="container">
         <h1>Contact</h1>
         <p>Une question, un projet, une adhésion ? Écrivez-nous.</p>
@@ -142,7 +141,6 @@ import { IMAGES, cssUrl } from '../images';
   `,
 })
 export class Contact {
-  protected readonly head = cssUrl(IMAGES.contact);
   private readonly messages = inject(MessageService);
   protected readonly site = SITE;
   protected readonly whatsapp = whatsappLink;
