@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { ActivityService } from './activity.service';
+import { defaultActivityPhoto } from './images';
 import { Reveal } from './reveal';
 
 @Component({
@@ -20,6 +21,7 @@ import { Reveal } from './reveal';
     .photo {
       aspect-ratio: 3 / 2;
       width: 100%;
+      height: auto;
       object-fit: cover;
       display: block;
       transition: transform 0.6s ease;
@@ -104,8 +106,16 @@ import { Reveal } from './reveal';
       @for (a of items(); track a.id ?? a.title; let i = $index) {
         <article appReveal [style.--d]="(i % 3) * 120 + 'ms'">
           <div class="frame">
-            @if (a.image_url) {
-              <img class="photo" [src]="a.image_url" alt="" loading="lazy" decoding="async" />
+            @if (a.image_url ?? defaultPhoto(a.title); as src) {
+              <img
+                class="photo"
+                [src]="src"
+                alt=""
+                width="900"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
             } @else {
               <div class="photo empty" aria-hidden="true">{{ a.title.charAt(0) }}</div>
             }
@@ -120,5 +130,6 @@ import { Reveal } from './reveal';
 export class ActivityGrid {
   protected readonly service = inject(ActivityService);
   readonly limit = input<number>(Infinity);
+  protected readonly defaultPhoto = defaultActivityPhoto;
   protected readonly items = computed(() => this.service.items().slice(0, this.limit()));
 }

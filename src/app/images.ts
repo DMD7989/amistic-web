@@ -62,3 +62,25 @@ export const GALLERY: readonly GalleryPhoto[] = [
   { src: '/images/galerie-7.jpg', alt: 'Participants en atelier devant leurs ordinateurs' },
   { src: '/images/galerie-4.jpg', alt: "Trois intervenants lors d'une rencontre publique" },
 ];
+
+// Photos par défaut des activités (photos libres de droits, Unsplash), reconnues d'après le titre.
+// Une photo envoyée depuis le back-office remplace toujours celle-ci.
+const ACTIVITY_PHOTOS: Record<string, string> = {
+  initiation: '/images/activite-initiation.jpg',
+  sensibilisation: '/images/activite-sensibilisation.jpg',
+  formation: '/images/activite-formation.jpg',
+  'ecoles et communautes': '/images/activite-ecoles.jpg',
+  partenariats: '/images/activite-partenariats.jpg',
+  innovation: '/images/activite-innovation.jpg',
+};
+
+const normalize = (title: string) =>
+  title
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .trim();
+
+/** Photo par défaut d'une activité d'après son titre, ou null si aucune ne correspond. */
+export const defaultActivityPhoto = (title: string): string | null =>
+  ACTIVITY_PHOTOS[normalize(title)] ?? null;
