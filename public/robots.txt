@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /admin
 
-Sitemap: https://amistic.ml/sitemap.xml
+Sitemap: https://amistic-mali.netlify.app/sitemap.xml
