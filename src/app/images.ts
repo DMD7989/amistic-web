@@ -10,6 +10,33 @@ export interface GalleryPhoto {
   alt: string;
 }
 
+// Photos de la formation « L'intelligence artificielle et la méthodologie de recherche documentaire en ligne »
+// (version légère -640 pour les galeries ; les meilleures photos en premier)
+const trainingPhoto = (n: string, alt: string): GalleryPhoto => ({
+  src: `/images/formation-ia-${n}-640.jpg`,
+  alt,
+});
+
+export const TRAINING_PHOTOS: readonly GalleryPhoto[] = [
+  trainingPhoto('06', "Le formateur s'adresse aux participants installés autour des tables"),
+  trainingPhoto(
+    '07',
+    "Participants suivant la présentation sur l'intelligence artificielle avec leurs ordinateurs",
+  ),
+  trainingPhoto('08', 'Participants en séance de travail avec leurs ordinateurs portables'),
+  trainingPhoto(
+    '10',
+    'Participants attentifs pendant la formation sur la recherche documentaire en ligne',
+  ),
+  trainingPhoto('11', 'Participants installés autour des tables pendant la formation'),
+  trainingPhoto('01', 'Le formateur devant les participants en début de séance'),
+  trainingPhoto('02', 'Participants assis en salle pendant la formation'),
+  trainingPhoto('03', 'Participants suivant la présentation projetée sur écran'),
+  trainingPhoto('04', 'Participants suivant la présentation projetée dans la salle'),
+  trainingPhoto('05', 'Participants devant la présentation projetée sur écran'),
+  trainingPhoto('09', 'Participants suivant la formation dans la salle'),
+];
+
 // Photo de bannière : `position` règle la zone visible (object-position) quand l'image est recadrée
 export interface BannerPhoto {
   src: string;
@@ -19,9 +46,9 @@ export interface BannerPhoto {
 
 export const BANNERS = {
   activities: {
-    src: '/images/banniere-activites.jpg',
-    alt: "Quatre membres de l'association lors d'une activité",
-    position: '50% 40%',
+    src: '/images/formation-ia-08.jpg',
+    alt: 'Participants à une formation AMISTIC travaillant sur leurs ordinateurs portables',
+    position: '50% 55%',
   },
   team: {
     src: '/images/banniere-equipe.jpg',
@@ -63,12 +90,20 @@ export const GALLERY: readonly GalleryPhoto[] = [
   { src: '/images/galerie-4.jpg', alt: "Trois intervenants lors d'une rencontre publique" },
 ];
 
+// Sélection pour l'accueil : formation récente et activités passées
+export const HOME_GALLERY: readonly GalleryPhoto[] = [
+  TRAINING_PHOTOS[0],
+  GALLERY[0],
+  TRAINING_PHOTOS[2],
+  GALLERY[2],
+];
+
 // Photos par défaut des activités (photos libres de droits, Unsplash), reconnues d'après le titre.
 // Une photo envoyée depuis le back-office remplace toujours celle-ci.
 const ACTIVITY_PHOTOS: Record<string, string> = {
   initiation: '/images/activite-initiation.jpg',
   sensibilisation: '/images/activite-sensibilisation.jpg',
-  formation: '/images/activite-formation.jpg',
+  formation: '/images/formation-ia-06.jpg',
   'ecoles et communautes': '/images/activite-ecoles.jpg',
   partenariats: '/images/activite-partenariats.jpg',
   innovation: '/images/activite-innovation.jpg',

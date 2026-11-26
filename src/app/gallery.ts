@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { GALLERY } from './images';
+import { GALLERY, GalleryPhoto } from './images';
 import { Reveal } from './reveal';
 
 // Photos des activités ; `limit` réduit le nombre de photos affichées (ex. sur l'accueil).
@@ -39,13 +39,13 @@ import { Reveal } from './reveal';
   `,
   template: `
     <div class="grid">
-      @for (p of photos(); track p.src; let i = $index) {
+      @for (p of shown(); track p.src; let i = $index) {
         <figure appReveal [style.--d]="(i % 4) * 100 + 'ms'">
           <img
             [src]="p.src"
             [alt]="p.alt"
-            width="206"
-            height="206"
+            width="640"
+            height="640"
             loading="lazy"
             decoding="async"
           />
@@ -55,6 +55,7 @@ import { Reveal } from './reveal';
   `,
 })
 export class Gallery {
+  readonly photos = input<readonly GalleryPhoto[]>(GALLERY);
   readonly limit = input(Infinity);
-  protected readonly photos = computed(() => GALLERY.slice(0, this.limit()));
+  protected readonly shown = computed(() => this.photos().slice(0, this.limit()));
 }

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink } from '@angular/router';
 import { ActivityGrid } from '../activity-grid';
 import { Gallery } from '../gallery';
-import { GROUP_PHOTO } from '../images';
+import { GROUP_PHOTO, HOME_GALLERY } from '../images';
 import { NewsService } from '../news.service';
 import { PartnerService } from '../partner.service';
 import { Reveal } from '../reveal';
@@ -336,7 +336,7 @@ import { Reveal } from '../reveal';
     <section class="section soft">
       <div class="container">
         <div class="title-bar" appReveal><h2>L'association en images</h2></div>
-        <app-gallery [limit]="4" />
+        <app-gallery [photos]="homeGallery" [limit]="4" />
       </div>
     </section>
 
@@ -416,6 +416,7 @@ import { Reveal } from '../reveal';
 })
 export class Home {
   protected readonly hero = GROUP_PHOTO;
+  protected readonly homeGallery = HOME_GALLERY;
   protected readonly news = inject(NewsService);
   protected readonly partners = inject(PartnerService);
   protected readonly latestNews = computed(() => this.news.items().slice(0, 3));
