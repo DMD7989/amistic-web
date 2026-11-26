@@ -6,15 +6,21 @@ export interface Photo {
 }
 
 export interface GalleryPhoto {
-  src: string;
+  src: string; // version affichée dans la galerie
+  full?: string; // grande version, ouverte au clic (par défaut : src)
   alt: string;
+  width: number;
+  height: number;
 }
 
 // Photos de la formation « L'intelligence artificielle et la méthodologie de recherche documentaire en ligne »
 // (version légère -640 pour les galeries ; les meilleures photos en premier)
-const trainingPhoto = (n: string, alt: string): GalleryPhoto => ({
+const trainingPhoto = (n: string, alt: string, portrait = false): GalleryPhoto => ({
   src: `/images/formation-ia-${n}-640.jpg`,
+  full: `/images/formation-ia-${n}.jpg`,
   alt,
+  width: portrait ? 480 : 640,
+  height: portrait ? 640 : 480,
 });
 
 export const TRAINING_PHOTOS: readonly GalleryPhoto[] = [
@@ -29,8 +35,8 @@ export const TRAINING_PHOTOS: readonly GalleryPhoto[] = [
     'Participants attentifs pendant la formation sur la recherche documentaire en ligne',
   ),
   trainingPhoto('11', 'Participants installés autour des tables pendant la formation'),
-  trainingPhoto('01', 'Le formateur devant les participants en début de séance'),
-  trainingPhoto('02', 'Participants assis en salle pendant la formation'),
+  trainingPhoto('01', 'Le formateur devant les participants en début de séance', true),
+  trainingPhoto('02', 'Participants assis en salle pendant la formation', true),
   trainingPhoto('03', 'Participants suivant la présentation projetée sur écran'),
   trainingPhoto('04', 'Participants suivant la présentation projetée dans la salle'),
   trainingPhoto('05', 'Participants devant la présentation projetée sur écran'),
@@ -78,16 +84,45 @@ export const GALLERY: readonly GalleryPhoto[] = [
   {
     src: '/images/galerie-1.jpg',
     alt: "Maintenance d'équipements réseau dans une salle technique",
+    width: 206,
+    height: 206,
   },
   {
     src: '/images/galerie-2.jpg',
     alt: 'Participants en atelier de formation dans une salle informatique',
+    width: 206,
+    height: 206,
   },
-  { src: '/images/galerie-3.jpg', alt: "Remise d'une attestation à une participante" },
-  { src: '/images/galerie-5.jpg', alt: 'Séance de formation en salle informatique' },
-  { src: '/images/galerie-6.jpg', alt: 'Travaux pratiques pendant une formation' },
-  { src: '/images/galerie-7.jpg', alt: 'Participants en atelier devant leurs ordinateurs' },
-  { src: '/images/galerie-4.jpg', alt: "Trois intervenants lors d'une rencontre publique" },
+  {
+    src: '/images/galerie-3.jpg',
+    alt: "Remise d'une attestation à une participante",
+    width: 206,
+    height: 206,
+  },
+  {
+    src: '/images/galerie-5.jpg',
+    alt: 'Séance de formation en salle informatique',
+    width: 206,
+    height: 206,
+  },
+  {
+    src: '/images/galerie-6.jpg',
+    alt: 'Travaux pratiques pendant une formation',
+    width: 206,
+    height: 206,
+  },
+  {
+    src: '/images/galerie-7.jpg',
+    alt: 'Participants en atelier devant leurs ordinateurs',
+    width: 206,
+    height: 206,
+  },
+  {
+    src: '/images/galerie-4.jpg',
+    alt: "Trois intervenants lors d'une rencontre publique",
+    width: 206,
+    height: 206,
+  },
 ];
 
 // Sélection pour l'accueil : formation récente et activités passées

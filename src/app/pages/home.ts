@@ -336,7 +336,7 @@ import { Reveal } from '../reveal';
     <section class="section soft">
       <div class="container">
         <div class="title-bar" appReveal><h2>L'association en images</h2></div>
-        <app-gallery [photos]="homeGallery" [limit]="4" />
+        <app-gallery [photos]="homeGallery" [limit]="4" [uniform]="true" />
       </div>
     </section>
 
